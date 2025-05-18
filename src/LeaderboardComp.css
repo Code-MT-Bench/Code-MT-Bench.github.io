@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+  agGridMaxWidth {
+      width: 100% !important;
+      /* Adjust this value based on your preference */
+      margin: auto;
+      overflow: auto !important;
+      /* This centers the grid horizontally */
+  }
+
+  .ag-root-wrapper {
+      width: 100% !important;
+      /* max-width: 750px; */
+      margin: auto;
+  }
+
+  .ag-theme-quartz {
+      width: 100% !important;
+      margin: auto;
+      overflow: auto !important;
+      --ag-header-column-separator-display: none !important; /* Remove vertical separators */
+      --ag-header-column-separator-width: 0px !important; /* Set separator width to 0 */
+      --ag-header-column-separator-color: transparent !important; /* Make separators transparent */
+  }
+
+
+  .ag-theme-quartz .ag-cell {
+      font-size: 17px !important;
+      font-family: 'Lato', sans-serif !important;
+      border-right: none !important; /* Remove vertical borders */
+      /* align-items: center; */
+      /* width: 100% !important;
+      margin: auto; */
+  }
+
+  .ag-theme-quartz .ag-header-cell-label {
+      font-size: 17px !important;
+      font-family: 'Lato', sans-serif !important;
+      /* align-items: center; */
+      /* width: 100% !important;
+      margin: auto; */
+  }
+
+  .ag-theme-quartz .ag-header-cell {
+      border-right: none !important; /* Remove vertical borders */
+      border-left: none !important; /* Remove vertical borders */
+  }
+
+  .ag-theme-quartz .ag-header-group-cell {
+      border-right: none !important; /* Remove vertical borders */
+      border-left: none !important; /* Remove vertical borders */
+  }
+
+  #flexGridWrapper {
+      width: 100% !important;
+      margin: auto;
+      /* max-width: 760px; */
+
+  }
+
+  .MuiSlider-markLabel {
+      display: none;
+  }
+
+
+  @media only screen and (max-width: 768px) {
+      agGridMaxWidth {
+          width: 100% !important;
+          /* max-width: 750px; */
+          /* Adjust this value based on your preference */
+          margin: auto !important;
+          /* This centers the grid horizontally */
+      }
+
+      .ag-root-wrapper {
+          width: 100% !important;
+          /* max-width: 750px; */
+          margin: auto;
+      }
+
+      .ag-theme-quartz {
+          width: 100% !important;
+          margin: auto;
+      }
+
+      .ag-theme-quartz .ag-cell {
+          font-size: 12px !important;
+          font-family: 'Lato', sans-serif !important;
+          /* align-items: center; */
+          /* width: 100% !important;
+          margin: auto; */
+      }
+
+      .ag-theme-quartz .ag-header-cell-label {
+          font-size: 14px !important;
+          font-family: 'Lato', sans-serif !important;
+          /* align-items: center; */
+          /* width: 100% !important;
+          margin: auto; */
+      }
+
+      #flexGridWrapper {
+          width: 100% !important;
+          margin: auto;
+          /* max-width: 760px; */
+
+      }
+  }

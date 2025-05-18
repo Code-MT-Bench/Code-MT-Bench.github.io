@@ -1,0 +1,994 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+
+/* Global font styling */
+html, body {
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+.tabs-container {
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+/* Tab content container styling */
+.tab-content {
+    padding: 70px 25px 25px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    margin-top: 15px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+/* Leaderboard title in the top-left corner */
+.tab-content::before {
+    content: "Leaderboard";
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    font-weight: 700;
+    font-size: 22px;
+    color: #000;
+    z-index: 20;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+/* Table selector in top-right corner */
+.table-selector {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    display: flex;
+    gap: 12px;
+    z-index: 30;
+    padding: 6px 0;
+}
+
+.selector-button {
+    background-color: #e8f4fc;
+    border: 1px solid #c0ddf0;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Lato', Arial, sans-serif;
+    width: 150px;
+    text-align: center;
+    flex-shrink: 0;
+    color: #2b6d91;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.selector-button:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transition: all 0.6s ease;
+}
+
+.selector-button.is-active {
+    background: linear-gradient(135deg, #5ebaff 0%, #4a90e2 100%);
+    color: white;
+    border-color: #3a80d2;
+    box-shadow: 0 3px 8px rgba(74, 144, 226, 0.3);
+}
+
+.selector-button:hover:not(.is-active) {
+    background-color: #d6ebfa;
+    border-color: #a3cfe9;
+    transform: translateY(-2px);
+}
+
+.selector-button:hover:before {
+    left: 100%;
+}
+
+/* Table styling similar to Multi-SWE-bench */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 35px 0 20px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #000; /* Black border around the table */
+}
+
+table thead th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid #ddd;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+table tbody td {
+    padding: 10px 15px;
+    vertical-align: middle;
+}
+
+/* Special styling for ranking columns */
+table tbody td:first-child {
+    font-weight: 600;
+}
+
+/* Resolution values styling */
+.resolution-values {
+    display: flex;
+    gap: 10px;
+}
+
+.resolution-values span {
+    display: inline-block;
+    text-align: center;
+    min-width: 40px;
+}
+
+.resolution-values span:first-child {
+    font-weight: bold;
+    color: #2193b0;
+}
+
+/* Sort icon styling */
+.sort-icon {
+    display: inline-block;
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+.sort-icon.selected {
+    color: #2193b0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .tab-content {
+        padding: 60px 15px 15px;
+    }
+    
+    .table-selector {
+        top: 10px;
+        right: 15px;
+        gap: 10px;
+        padding: 4px 0;
+    }
+    
+    .selector-button {
+        padding: 5px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Further adjustments for very small screens */
+@media (max-width: 480px) {
+    .tab-content {
+        padding: 85px 10px 15px;
+    }
+    
+    .table-selector {
+        top: 35px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 100%;
+        justify-content: center;
+        padding: 6px 0;
+    }
+}
+
+/* Title with gradient background and outlined text */
+.title.is-1.publication-title {
+    color: black;
+    font-size: 3.8rem !important;
+    text-shadow: 
+        -2px -2px 0 white,
+        2px -2px 0 white,
+        -2px 2px 0 white,
+        2px 2px 0 white,
+        0px 0px 8px rgba(255, 255, 255, 0.7);
+    padding: 20px 20px 10px 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: 900;
+    letter-spacing: 2.6px;
+    font-family: 'Lato', Arial, sans-serif;
+    margin-left: -55px;
+}
+
+/* Icon styling for the title */
+.title-icon {
+    height: 7.5rem;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 20px;
+    display: inline-block;
+    transition: transform 0.5s ease; /* 添加平滑过渡效果 */
+}
+
+/* 添加悬停放大效果 */
+.title-icon:hover {
+    transform: scale(1.35); /* 悬停时图标放大到原尺寸的1.15倍 */
+}
+
+/* Hero section with gradient background - only for title section */
+.hero-header {
+    background: 
+        radial-gradient(circle at 25% 30%, #5ebaff 0%, transparent 35%),
+        radial-gradient(circle at 75% 40%, #adeb9e 0%, transparent 55%),
+        radial-gradient(circle at 50% 75%, #9c6af8 0%, transparent 85%),
+        #40a3d4;
+    padding: 20px 0 0px 0;
+    box-shadow: 0 6px 20px rgba(33, 147, 176, 0.4);
+    margin-bottom: -30px;
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+/* Main content area with white background */
+.main-content {
+    background-color: white;
+    padding: 0 0 20px 0;
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+/* Subtitle styling */
+.subtitle {
+    color: #000000;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    font-family: 'Lato', Arial, sans-serif;
+    margin-left: 90px;
+}
+
+/* Publication links styling */
+.publication-links {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.link-block {
+    display: inline-block;
+    margin: 0 5px 10px 5px;
+}
+
+.external-link.button.is-dark {
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.external-link.button.is-dark:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Content wrapper similar to Multi-SWE-bench */
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Text styles */
+.text-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.text-note {
+    font-weight: 600;
+    color: #2193b0;
+}
+
+/* Content box */
+.tabcontent.block {
+    margin-bottom: 20px;
+}
+
+/* Footer section */
+.leaderboard-footer {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eaeaea;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Medal styles for rankings */
+td[data-rank="1"]:first-child::before {
+    content: "🥇 ";
+}
+
+td[data-rank="2"]:first-child::before {
+    content: "🥈 ";
+}
+
+td[data-rank="3"]:first-child::before {
+    content: "🥉 ";
+}
+
+/* Additional styling for the AG-Grid cells */
+.ag-theme-quartz .ag-cell {
+    padding: 8px 10px;
+    font-size: 15px !important;
+    border-right: none !important; /* Remove vertical borders */
+}
+
+.ag-theme-quartz .ag-header-cell {
+    background-color: #f5f5f5;
+    font-weight: 700;
+    color: #000;
+    padding: 8px 10px;
+    font-size: 17px !important;
+    border-right: none !important; /* Remove vertical borders */
+    border-left: none !important; /* Remove vertical borders */
+}
+
+/* Add bold black border under specific headers */
+.ag-theme-quartz .ag-header-row {
+    border-bottom: 2px solid #000 !important; /* Add bold black border under all headers */
+    border-right: none !important; /* Remove vertical borders */
+}
+
+/* Create style for group header row */
+.ag-theme-quartz .ag-header-group-cell {
+    background-color: #f5f5f5;
+    font-weight: 700;
+    color: #000;
+    padding: 8px 10px;
+    font-size: 18px !important;
+    border-bottom: 2px solid #000 !important; /* Changed from blue to black */
+    border-right: none !important; /* Remove vertical borders */
+    border-left: none !important; /* Remove vertical borders */
+}
+
+/* Add border styles for top header row */
+.ag-theme-quartz .ag-header-row-column-group {
+    border-bottom: 2px solid #000 !important; /* Changed from blue to black */
+    border-right: none !important; /* Remove vertical borders */
+}
+
+/* Add border styles for bottom header row */
+.ag-theme-quartz .ag-header-row-column {
+    border-top: none !important; /* Removed border */
+    border-right: none !important; /* Remove vertical borders */
+}
+
+/* Special styling for Rank, AVG column headers - keeping only background and font weight */
+.ag-theme-quartz .ag-header-cell[col-id="Rank"],
+.ag-theme-quartz .ag-header-cell[col-id="AVG"] {
+    background-color: #f5f5f5;
+    font-weight: 700;
+    /* Removed border-bottom to match other cells */
+}
+
+/* Style for % Resolved header */
+.percent-resolved {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000;
+    border-bottom: 2px solid #000; /* Changed from blue to black */
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+/* Style for the level tabs (Overall, Easy, Medium, Hard) */
+.level-tabs {
+    display: flex;
+    list-style-type: none;
+    margin: 5px 0 10px 0;
+    padding: 0;
+    border-bottom: 2px solid #000; /* Changed from blue to black */
+}
+
+.level-tabs li {
+    padding: 5px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: #666;
+}
+
+.level-tabs li.active {
+    font-weight: bold;
+    color: #000;
+    position: relative;
+}
+
+.level-tabs li.active::after {
+    content: "▼";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #666;
+}
+
+/* Additional styling for AG-Grid custom borders */
+.ag-theme-quartz {
+    --ag-borders: none; /* Remove default borders */
+    --ag-row-border-style: solid;
+    --ag-row-border-width: 1px;
+    --ag-row-border-color: #f0f0f0; /* Light horizontal lines between rows */
+    border: 1px solid #000 !important; /* Keep black border for the grid */
+    --ag-header-column-separator-display: none; /* Hide column separators */
+    --ag-header-column-separator-width: 0px; /* Set separator width to 0 */
+    --ag-header-column-separator-color: transparent; /* Make separators transparent */
+    --ag-odd-row-background-color: #f9f9f9; /* Light gray for odd rows */
+    --ag-even-row-background-color: #ffffff; /* White for even rows */
+}
+
+/* Add horizontal lines between groups of data */
+.model-separator {
+    border-bottom: 2px solid #000 !important;
+}
+
+.rank-separator {
+    border-bottom: 2px solid #000 !important;
+}
+
+.avg-separator {
+    border-bottom: 2px solid #000 !important;
+}
+
+
+
+/* Style for the first column (Model) to make it stand out */
+.ag-theme-quartz .ag-cell.ag-cell-first-right-pinned {
+    font-weight: 600;
+}
+
+/* Override any remaining internal borders */
+.ag-theme-quartz .ag-root-wrapper {
+    border: none !important;
+}
+
+.ag-theme-quartz .ag-row:hover {
+    background-color: #f0f0f0;
+}
+
+/* About TableBench panel */
+/* 合并的面板样式 */
+.combined-panel {
+    background: linear-gradient(135deg, rgba(255, 245, 235, 0.6) 0%, rgba(254, 225, 201, 0.4) 100%);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    font-family: 'Lato', Arial, sans-serif;
+    color: #333;
+    border: 1px solid #000;
+    max-width: 400px;
+    position: relative;
+    height: fit-content;
+    margin-top: 35px;
+    letter-spacing: 0.02em;
+}
+
+.combined-panel::before {
+    position: absolute;
+    top: 12px;
+    left: 28px;
+    font-weight: 700;
+    font-size: 22px;
+    color: #000;
+    z-index: 20;
+    font-family: 'Lato', Arial, s ans-serif;
+    letter-spacing: 0.04em;
+}
+
+.about-section {
+    margin-top: 0px;
+}
+
+.about-section h3 {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    margin-top: 0;
+    color: #000;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #000;
+    font-family: 'Apple Chancery', Arial, sans-serif;
+    letter-spacing: 0em;
+}
+
+.about-section p {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: left;
+    margin-top: 15px;
+    font-family: 'Lato', Arial, sans-serif;
+    font-weight: 400;
+}
+
+/* 分隔线样式 */
+.divider {
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 28px 0;
+    width: 100%;
+}
+
+.citation-section {
+    margin-bottom: 10px;
+}
+
+.citation-section h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.citation-section pre {
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: left;
+    margin: 5px 0;
+    white-space: pre; /* 使用pre保持原始格式但防止自动换行 */
+    overflow-x: scroll; /* 强制显示水平滚动条 */
+    font-family: monospace;
+    border: 1px solid #eee;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    scrollbar-width: thin;
+    display: block;
+    max-width: 100%; /* 确保不会超出父容器宽度 */
+}
+
+/* 自定义滚动条样式（Webkit浏览器） */
+.citation-section pre::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.citation-section pre::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.citation-section pre::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.citation-section pre::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+/* News section styling */
+.news-section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.news-section h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #000;
+    font-family: 'Apple Chancery', Arial, sans-serif;
+    letter-spacing: 0.03em;
+}
+
+.news-content {
+    background-color: rgba(229, 240, 252, 0.5);
+    padding: 20px;
+    border-radius: 6px;
+    max-height: 260px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.8;
+    scrollbar-width: thin;
+    font-family: 'Calibri', Arial, sans-serif;
+}
+
+.news-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.news-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.news-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.news-content::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+.news-date {
+    background-color: #b71636;
+    color: #fffaef;
+    padding: 0.3px 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.news-MT-Bench {
+    background-color: #ffe396;
+    color: #6945ed;
+    padding: 0.01px 3px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 2px;
+    font-family: 'Lato', monospace;
+}
+
+
+/* Challenges section styling */
+.challenges-section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.challenges-section h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #000;
+    font-family: 'Apple Chancery', Arial, sans-serif;
+    letter-spacing: 0.03em;
+}
+
+.challenges-content {
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+.challenges-content ol {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.challenges-content li {
+    margin-bottom: 8px;
+}
+
+/* Submission section styling */
+.submission-section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.submission-section h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #000;
+    font-family: 'Apple Chancery', Arial, sans-serif;
+    letter-spacing: 0.03em;
+}
+
+.submission-content {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+.submission-button {
+    display: block;
+    background: linear-gradient(135deg, #ffa76a 0%, #ff6e73 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    font-family: 'Lato', Arial, sans-serif;
+    box-shadow: 0 4px 15px rgba(255, 110, 115, 0.3);
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+}
+
+.submission-button:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+    transition: all 0.8s ease;
+}
+
+.submission-button:hover {
+    background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 18px rgba(255, 94, 98, 0.4);
+}
+
+.submission-button:hover:before {
+    left: 100%;
+}
+
+/* Credit section for original source */
+.credit-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #cccccc;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    font-family: 'Lato', Arial, sans-serif;
+}
+
+/* Responsive layout for the main content */
+.content-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: -10px;
+}
+
+.content-layout > div:last-child {
+    flex: 1;
+    margin-top: 20px;
+}
+
+@media (max-width: 992px) {
+    .content-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .combined-panel {
+        max-width: 100%;
+        margin-top: 0;
+    }
+    
+    .content-layout > div:last-child {
+        margin-top: 0;
+    }
+}
+
+/* Citation panel that appears below the table */
+.citation-panel {
+    margin-top: 20px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.citation-panel h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #000;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.citation-format-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.format-button {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 6px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.format-button.is-active {
+    background-color: #000;
+    color: white;
+    border-color: #000;
+}
+
+.format-button:hover:not(.is-active) {
+    background-color: #e0e0e0;
+}
+
+.citation-content {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    position: relative;
+    margin-top: 5px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.copy-button:hover {
+    background-color: #e0e0e0;
+}
+
+.copy-button.copied {
+    background-color: #4caf50;
+    color: white;
+    border-color: #4caf50;
+}
+
+/* Responsive adjustments for citation panel */
+@media (max-width: 768px) {
+    .citation-panel {
+        padding: 15px;
+    }
+    
+    .citation-format-buttons {
+        flex-wrap: wrap;
+    }
+}
+
+/* Search functionality styling */
+.search-container {
+    position: relative;
+    margin-right: 15px;
+    width: 200px; /* Fixed width to prevent layout shifts */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.search-input {
+    width: 100%;
+    padding: 8px 32px 8px 12px;
+    border: 1px solid #c0ddf0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #2b6d91;
+    background-color: #f0f8fe;
+    transition: all 0.3s ease;
+    font-family: 'Lato', Arial, sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #5ebaff;
+    box-shadow: 0 2px 8px rgba(94, 186, 255, 0.2);
+    background-color: #ffffff;
+}
+
+.search-input::placeholder {
+    color: #8abbd7;
+    font-style: italic;
+}
+
+.clear-search {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #5ebaff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.clear-search:hover {
+    color: #2b6d91;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #c0ddf0;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f8fe;
+    color: #2b6d91;
+    transition: background-color 0.2s ease;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: #e8f4fc;
+}
+
+/* Highlighted column style */
+.highlighted-column {
+    background-color: rgba(255, 255, 150, 0.4) !important; /* Light yellow background */
+}
+
+.news-content p, .challenges-content p, .challenges-content strong {
+    font-family: 'Lato', Arial, sans-serif;
+}
